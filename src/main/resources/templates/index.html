@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+<link rel="stylesheet" href="webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+<title>Person Page</title>
+</head>
+<body>
+	<div class="container">
+	<button class="btn btn-success nBtn"> New </button>
+		<div class="card">
+			<div class="card-block">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>FAMILY</th>
+							<th>PERSONTYPE</th>
+							<th>MOBILEPHONE</th>
+							<th>PHONE</th>
+						</tr>
+					
+					 </thead>
+					 <tbody>
+					 	<tr th:each="person :${data.content}">
+					 		<td th:text="${person.id}"></td>
+					 		<td th:text="${person.name}"></td>
+					 		<td th:text="${person.family}"></td>
+					 		<td th:text="${person.personType}"></td>
+					 		<td th:text="${person.mobilePhone}"></td>
+					 		<td th:text="${person.phone}"></td>
+					 		<td><a th:href="@{delete/(id=${person.id})}" class="btn btn-danger delBtn">Delete</a></td>
+					 		<td><a th:href="@{findOne/(id=${person.id})}" class="btn btn-primary eBtn">Edit</a></td>
+					 	
+					 	</tr>
+					 
+					 </tbody>
+				</table>
+				<hr />
+				<ul class="nav nav-pills">
+					<li class="nav-item" th:each=" i :${#numbers.sequence(0,data.totalPages-1)}">
+						<a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link"  th:classappend="${currentPage}==${i}?'active':''"></a>
+					
+					</li>
+				</ul>
+				
+				
+			</div>
+		</div>
+	
+	<div class="myForm">
+		<form th:action="@{/save}" method="post">
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="id" class="col-form-label">ID:</label>
+            <input type="text" class="form-control" id="id" name="id" value="" />
+          </div>
+          
+           <div class="form-group">
+            <label for="id" class="col-form-label">NAME:</label>
+            <input type="text" class="form-control" id="name" name="name" value="" />
+          </div>
+          
+          <div class="form-group">
+            <label for="id" class="col-form-label">FAMILY:</label>
+            <input type="text" class="form-control" id="family" name="family" value="" />
+          </div>
+          
+          <div class="form-group">
+            <label for="id" class="col-form-label">PERSONTYPE:</label>
+            <input type="text" class="form-control" id="personType" name="personType" value="" />
+          </div>
+          
+          <div class="form-group">
+            <label for="id" class="col-form-label">MOBILEPHONE:</label>
+            <input type="text" class="form-control" id="mobilePhone" name="mobilePhone" value="" />
+          </div>
+          
+          <div class="form-group">
+            <label for="id" class="col-form-label">PHONE:</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="" />
+          </div>
+          
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="save"/>
+      </div>
+    </div>
+  </div>
+  
+</div>
+	</form>
+	</div>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+	        <p class="alert alert-danger">
+	        	Are you sure you want to delete person 
+	        </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <a href=""  class="btn btn-danger" id="delRef">Delete</a>
+	      </div>
+	    </div>
+  </div>
+</div>
+	
+	</div>
+
+</body>
+</html>
